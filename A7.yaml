@@ -1,0 +1,71 @@
+---
+apiversion = v1
+
+info:
+  title: Movie Showtime Selection
+  version: v1
+  description: This file serves to outline the capabilities provided by the movie showtime selection service. 
+user:
+  userID: string
+  watchHistory: string
+showtimes:
+  showID: string
+  time: string
+  price: integer
+  seat: string
+  date: string
+  movieID: string
+movies:
+  movieID: string
+  title: string
+  runtime: integer
+  theaterNumber: integer
+  genre: string
+  rating: string
+paths:
+  /movies:
+    get:
+      summary: retrieve all movies currently showing
+      responses: 
+        "200":
+          description: successfully got all movies listed
+    post:
+      summary: request a particular movie
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movieID:
+                  type: string
+                  example: "movie1"
+                title:
+                  type: string
+                  example: "Interstellar"
+                runtime:
+                  type: integer
+                  example: 169
+                theaterNumber:
+                  type: integer
+                  example: 6
+                genre:
+                  type: string
+                  example: "Drama"
+                rating:
+                  type: string
+                  example: "PG-13"
+              required:
+                -movieID
+                -theaterNumber
+    delete:
+      summary: deletes a showtime by showID
+      parameter:
+        showID: showID
+        in: path
+        required: true
+        description: the showID specifies the show to be deleted from the schedule
+      reponses:
+        "200":
+          description: successfully deleted showtime
